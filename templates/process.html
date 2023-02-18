@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-form">
+  <div class="col-xs-6">
+    {% from "_macros.html" import render_input %}
+    <h1>Números a procesar</h1>
+    <form action="/Process" method="POST">
+
+      {% for numberFields in range(numberFields) %}
+      {{ render_input("txtNumber", "N"~numberFields, type="number") }}
+      {% endfor %}
+
+      <input type="submit" class="btn btn-default btn-primary" value="CALCULAR">
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,5 +1,18 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Multiplicación de {{ n1 }} X {{ n2 }} = {{ res }}</h1>
+
+<div class="container-form">
+  <div class="col-xs-6">
+    <h1>RESULTADOS OBTENIDOS</h1>
+    <p>El número mayor es: {{ major }}</p>
+    <p>El número menor es: {{ minor }}</p>
+    <p>El promedio de los números es: {{ average }}</p>
+    {% for result in results %}
+    <p>{{ result }}</p>
+    {% endfor %}
+    <a href="/" class="btn btn-default btn-primary">INICIO</a>
+  </div>
+</div>
+
 {% endblock %}

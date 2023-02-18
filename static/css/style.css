@@ -1,0 +1,28 @@
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  color: white;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+.container-form {
+  width: 35%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  font-weight: bold;
+  color: brown;
+  text-decoration: dashed;
+}
