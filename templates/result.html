@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% from "_macros.html" import render_input %}
+<div class="col-xs-6">
+  <h1>Cajas dinamicas</h1>
+  <form action="/Calculos" method="POST">
+    {% for fields in range(fields) %}
+    {{ render_input("txtNumero", "Ingresa un número", type="number") }}
+    {% endfor %}
+
+    <input type="submit" value="GENERAR">
+  </form>
+
+  <h3>El número mayor es: {{ mayor }}</h3>
+  <h3>El número mayor es: {{ menor }}</h3>
+</div>
+
+{% endblock %}
