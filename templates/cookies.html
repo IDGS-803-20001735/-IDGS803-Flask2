@@ -7,10 +7,10 @@
   <form action="" method="POST" novalidate>
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    {{ render_field(form.matricula) }}
-    {{ render_field(form.nombre) }}
-    {{ render_field(form.apaterno) }}
-    {{ render_field(form.email) }}
+    {{ render_field(form.username) }}
+    {{ render_field(form.password) }}
+
+
 
     <input type="submit" value="Registrar">
   </form>

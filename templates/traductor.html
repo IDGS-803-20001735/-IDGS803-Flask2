@@ -4,13 +4,13 @@
 
 <div class="col-xs-6">
   {% from "_macros.html" import render_field %}
-  <form action="" method="POST" novalidate>
+  <form action="/traductor" method="POST" novalidate>
     {{ form.csrf_token }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-    {{ render_field(form.matricula) }}
-    {{ render_field(form.nombre) }}
-    {{ render_field(form.apaterno) }}
-    {{ render_field(form.email) }}
+    {{ render_field(form.inputEspanol) }}
+    {{ render_field(form.inputIngles) }}
+
+
 
     <input type="submit" value="Registrar">
   </form>

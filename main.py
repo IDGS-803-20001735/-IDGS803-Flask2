@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from collections import Counter
 
 app = Flask(__name__)
 
@@ -24,10 +25,12 @@ def process():
 
   average = sum(numbersInt) / len(numbersInt)
 
+  counter = Counter(numbersString)
+  resultados = counter.most_common()
   results = []
-  for number in numbersInt:
-    appearance = numbersInt.count(number)
-    results.append("{} aparece {} veces".format(number, appearance))
+  for r in resultados:
+        if r[1] > 1:
+            results.append('El numero {0} se repite {1}'.format(r[0], r[1]))
 
   return render_template('resultado.html', major = major, minor = minor, average = average, results = results)
 
