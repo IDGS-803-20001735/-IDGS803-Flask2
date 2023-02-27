@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-form">
+  <div class="col-xs-6">
+    <h1>TRADUCTOR</h1>
+    {% from "_macros.html" import render_field %}
+    <form action="/Diccionario" method="POST" novalidate>
+      {{ form.csrf_token }}
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      {{ render_field(form.inputEspanol) }}
+      {{ render_field(form.inputIngles) }}
+      <input type="submit" class="btn btn-default btn-success" value="GUARDAR">
+    </form>
+    <form action="/Traductor" method="POST" novalidate>
+      {{ form.csrf_token }}
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      {{ render_field(form.lenguaje) }}
+      {{ render_field(form.text) }}
+      <h5>{{ traduccion }}</h5>
+      <input type="submit" class="btn btn-default btn-info" value="TRADUCIR">
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

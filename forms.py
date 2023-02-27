@@ -32,7 +32,5 @@ class LoginForm(Form):
 class TradForm(Form):
     inputEspanol = StringField('Español')
     inputIngles = StringField('Inglés')
-    lenguaje = RadioField('Idioma', [
-        validators.DataRequired(message = 'Este campo es requerido')], 
-        choices = [('es', 'Español'), ('en', 'Inglés')]
-        )
+    lenguaje = RadioField('Selecciona el idioma a traducir:', choices = [('es', 'Español'), ('en', 'Inglés')])
+    text = StringField('Texto')

@@ -1,0 +1,3 @@
+rojo:red
+perro:dog
+pescado:fish

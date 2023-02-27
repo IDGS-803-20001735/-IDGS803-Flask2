@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, make_response, flash
 from flask_wtf.csrf import CSRFProtect
-from forms import TradForm as trad
-from forms import LangForm as lang
 
 import forms
 
@@ -50,53 +48,41 @@ def alumnos():
         
     return render_template('alumnos.html', form = alum_form)
 
-@app.route("/traductor", methods=['POST', 'GET'])
+@app.route("/Diccionario", methods = ['GET', 'POST'])
+def diccionario():
+    reg_palabras = forms.TradForm(request.form)
+    if request.method == 'POST':
+        with open('diccionario.txt', 'a') as f:
+            f.write(f"{reg_palabras.inputEspanol.data.lower()}:{reg_palabras.inputIngles.data.lower()}\n")
+        flash("Las palabras se almacenaron de forma correcta!!!", "success")
+        return render_template('diccionario.html', form = reg_palabras)
+        
+    return render_template('diccionario.html', form = reg_palabras)
+
+@app.route("/Traductor", methods=['GET', 'POST'])
 def traductor():
-    reg_lang = lang(request.form)
-    reg_trad = trad(request.form)
-
-    if request.method == 'POST' and reg_lang.validate():
-        with open('traducciones.txt', 'a') as f:
-            f.write(f"{reg_lang.espanniol.data.lower()} = {reg_lang.ingles.data.lower()}\n")
-        flash('Traducción guradada')
-        return render_template('traductor.html', reg_lang = reg_lang, reg_trad = reg_trad)
-    else:
-        return render_template('traductor.html', reg_lang = reg_lang, reg_trad = reg_trad)
-
-@app.route("/traductor_resultado", methods = ['POST', 'GET'])
-def traductor_resultado():
-    reg_trad = trad(request.form)
-    reg_lang = lang(request.form)
-
-    if request.method == 'POST' and reg_trad.validate():
+    reg_palabras = forms.TradForm(request.form)
+    if request.method == 'POST':
         idioma = request.form.get('lenguaje')
-        if idioma == 'es':
-            palabra = request.form.get('inputEspanol')
-        else:
-            palabra = request.form.get('inputIngles')
-        resultado = buscar_traduccion(palabra, idioma)
-        if resultado is '':
-            if idioma == 'es':
-                mensaje = "No se encontró traducción para {} en inglés.".format(palabra)
-            elif idioma == 'en':
-                mensaje = "No se encontró traducción para {} en español.".format(palabra)
-            flash(mensaje)
-        if idioma == 'es':
-            return render_template('traductor.html', form = reg_lang, formSalida = reg_trad, ingles = resultado, español = palabra)
-        else:
-            return render_template('traductor.html', form = reg_lang, formSalida = reg_trad, ingles = palabra, español = resultado)
-    return render_template('traductor.html', form = reg_lang, formSalida = reg_trad)
+        palabra = request.form.get('text')
+
+        traduccion = buscar_traduccion(palabra, idioma)
+
+        if not traduccion:
+            flash(f"No se encontró traducción para {traduccion} en {'español' if idioma == 'es' else 'ingles'}.", "error")
+        
+        return render_template('diccionario.html', form = reg_palabras, traduccion = traduccion)
+
+    return render_template('diccionario.html', form = reg_palabras)
 
 def buscar_traduccion(palabra, lenguaje):
-    with open('traducciones.txt', 'r') as f:
-        lineas = f.readlines()
-        for linea in lineas:
-            partes = linea.strip().split('=')
+    with open('diccionario.txt', 'r') as f:
+        palabras = f.read().splitlines()
+        for frase in palabras:
+            partes = frase.split(':')
             if len(partes) == 2:
-                if lenguaje == 'es' and partes[0].lower() == palabra.lower():
-                    return partes[1]
-                elif lenguaje == 'en' and partes[1].lower() == palabra.lower():
-                    return partes[0]
+                if partes[0 if lenguaje == 'en' else 1].lower() == palabra.lower():
+                    return partes[1 if lenguaje == 'en' else 0]
     return ''
 
 if __name__ == "__main__":
