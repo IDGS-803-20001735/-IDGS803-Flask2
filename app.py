@@ -69,7 +69,7 @@ def traductor():
         traduccion = buscar_traduccion(palabra, idioma)
 
         if not traduccion:
-            flash(f"No se encontró traducción para {traduccion} en {'español' if idioma == 'es' else 'ingles'}.", "error")
+            flash(f"No se encontró traducción para {palabra} en {'español' if idioma == 'es' else 'ingles'}.", "error")
         
         return render_template('diccionario.html', form = reg_palabras, traduccion = traduccion)
 
@@ -84,6 +84,50 @@ def buscar_traduccion(palabra, lenguaje):
                 if partes[0 if lenguaje == 'en' else 1].lower() == palabra.lower():
                     return partes[1 if lenguaje == 'en' else 0]
     return ''
+
+@app.route("/Resistencia", methods=['GET', 'POST'])
+def calResistencia():
+    resistencia_form = forms.ResistenciaForm(request.form)
+    if request.method == 'POST':
+        codigo_colores = {
+          'black': 0,
+          'maroon': 1,
+          'red': 2,
+          'orange': 3,
+          'yellow': 4,
+          'green': 5,
+          'blue': 6,
+          'violet': 7,
+          'gray': 8,
+          'white': 9,
+          'gold': 0.05,
+          'silver': 0.1
+        }
+
+        color1 = resistencia_form.bandaUno.data
+        color2 = resistencia_form.bandaDos.data
+        color3 = resistencia_form.bandaTres.data
+        color4 = resistencia_form.tolerancia.data
+
+        bandaUno = codigo_colores[color1]
+        bandaDos = codigo_colores[color2]
+        bandaTres = codigo_colores[color3]
+        tolerancia = codigo_colores[color4]
+
+        valorNominal = (bandaUno * 10 + bandaDos) * 10 ** bandaTres
+
+        minimo = 0
+        maximo = 0
+        if tolerancia == 0.05:
+            maximo = valorNominal + valorNominal*(0.05)
+            minimo = valorNominal - valorNominal*(0.05)
+        elif tolerancia == 0.1:
+            maximo = valorNominal + valorNominal*(0.1)
+            minimo = valorNominal - valorNominal*(0.1)
+
+        return render_template('resistencia.html', form = resistencia_form, color1 = color1, color2 = color2, color3 = color3, color4 = color4, 
+                               valorNominal = valorNominal, minimo =  minimo, maximo = maximo)
+    return render_template('resistencia.html', form = resistencia_form)
 
 if __name__ == "__main__":
     csrf.init_app(app)

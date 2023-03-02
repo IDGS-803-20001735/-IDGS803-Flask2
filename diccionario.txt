@@ -1,3 +1,6 @@
 rojo:red
 perro:dog
 pescado:fish
+azul:blue
+naranja:orange
+verde:green

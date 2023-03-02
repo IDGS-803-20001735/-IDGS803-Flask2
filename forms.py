@@ -34,3 +34,45 @@ class TradForm(Form):
     inputIngles = StringField('Inglés')
     lenguaje = RadioField('Selecciona el idioma a traducir:', choices = [('es', 'Español'), ('en', 'Inglés')])
     text = StringField('Texto')
+
+class ResistenciaForm(Form):
+    bandaUno = SelectField('Banda 1', choices = [
+        ('black', 'Negro'), 
+        ('maroon', 'Marrón'), 
+        ('red', 'Rojo'), 
+        ('orange', 'Naranja'),
+        ('yellow', 'Amarillo'),
+        ('green', 'Verde'),
+        ('blue', 'Azul'),
+        ('violet', 'Violeta'),
+        ('gray', 'Gris'),
+        ('white', 'Blanco')
+    ])
+    bandaDos = SelectField('Banda 2', choices = [
+        ('black', 'Negro'), 
+        ('maroon', 'Marrón'), 
+        ('red', 'Rojo'), 
+        ('orange', 'Naranja'),
+        ('yellow', 'Amarillo'),
+        ('green', 'Verde'),
+        ('blue', 'Azul'),
+        ('violet', 'Violeta'),
+        ('gray', 'Gris'),
+        ('white', 'Blanco')
+    ])
+    bandaTres = SelectField('Banda 2', choices = [
+        ('black', 'Negro'), 
+        ('maroon', 'Marrón'), 
+        ('red', 'Rojo'), 
+        ('orange', 'Naranja'),
+        ('yellow', 'Amarillo'),
+        ('green', 'Verde'),
+        ('blue', 'Azul'),
+        ('violet', 'Violeta'),
+        ('gray', 'Gris'),
+        ('white', 'Blanco')
+    ])
+    tolerancia = RadioField('Elige la tolerancia', choices = [
+        ('gold','ORO = 5%'),
+        ('silver','PLATA = 10%')
+    ])

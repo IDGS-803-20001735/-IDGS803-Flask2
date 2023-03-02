@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container-form">
+  <div class="col-xs-6">
+    <h1>CALCULADORA RESISTENCIA</h1>
+    <img src="../static/img/resistencia-img.png" alt="">
+  </div>
+  <div class="col-xs-6">
+    {% from "_macros.html" import render_field %}
+    <form action="/Resistencia" method="POST" novalidate>
+      {{ form.csrf_token }}
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      {{ render_field(form.bandaUno) }}
+      {{ render_field(form.bandaDos) }}
+      {{ render_field(form.bandaTres) }}
+      {{ render_field(form.tolerancia) }}
+      <input type="submit" class="btn btn-default btn-success" value="CALCULAR">
+      <div class="col-xs-6">
+        <table class="table table-dark table-striped">
+          <thead>
+            <th>BANDA 1</th>
+            <th>BANDA 2</th>
+            <th>BANDA 3</th>
+            <th>BANDA 4</th>
+            <th>VALOR</th>
+            <th>MINIMO</th>
+            <th>MAXIMO</th>
+          </thead>
+          <tbody>
+            <td style="background-color: {{ color1 }};">{{ color1 }}</td>
+            <td style="background-color: {{ color2 }};">{{ color2 }}</td>
+            <td style="background-color: {{ color3 }};">{{ color3 }}</td>
+            <td style="background-color: {{ color4 }};">{{ color4 }}</td>
+            <td style="background-color: dimgrey;">{{ valorNominal }}</td>
+            <td style="background-color: dimgrey;">{{ minimo }}</td>
+            <td style="background-color: dimgrey;">{{ maximo }}</td>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
