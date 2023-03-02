@@ -4,3 +4,4 @@ pescado:fish
 azul:blue
 naranja:orange
 verde:green
+león:lyon

@@ -88,7 +88,7 @@ def buscar_traduccion(palabra, lenguaje):
 @app.route("/Resistencia", methods=['GET', 'POST'])
 def calResistencia():
     resistencia_form = forms.ResistenciaForm(request.form)
-    if request.method == 'POST':
+    if request.method == 'POST' and resistencia_form.validate():
         codigo_colores = {
           'black': 0,
           'maroon': 1,

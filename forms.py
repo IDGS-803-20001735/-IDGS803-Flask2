@@ -72,7 +72,8 @@ class ResistenciaForm(Form):
         ('gray', 'Gris'),
         ('white', 'Blanco')
     ])
-    tolerancia = RadioField('Elige la tolerancia', choices = [
+    tolerancia = RadioField('Elige la tolerancia', [validators.DataRequired(message = 'El campo es requerido')], 
+        choices = [
         ('gold','ORO = 5%'),
         ('silver','PLATA = 10%')
     ])
