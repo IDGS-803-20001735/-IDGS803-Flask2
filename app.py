@@ -68,6 +68,8 @@ def traductor():
 
         traduccion = buscar_traduccion(palabra, idioma)
 
+        traduccion = traduccion.capitalize()
+
         if not traduccion:
             flash(f"No se encontró traducción para {palabra} en {'español' if idioma == 'es' else 'ingles'}.", "error")
         
